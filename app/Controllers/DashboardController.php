@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -8,6 +8,6 @@ class DashboardController extends BaseController
 {
     public function index(Request $request): mixed
     {
-        return 'AA';
+        return view('dashboard');
     }
 }

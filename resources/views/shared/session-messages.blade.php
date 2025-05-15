@@ -17,11 +17,9 @@
 @endif
 
 @if($errors->any())
-    <x-modal-alert type="warning" title="Atenção" show="true">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </x-modal-alert>
+    <x-alert type="warning">
+        @foreach ($errors->all() as $error)
+            <div>• {{ $error }}</div>
+        @endforeach
+    </x-alert>
 @endif

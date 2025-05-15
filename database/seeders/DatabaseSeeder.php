@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $user->email = 'admin@teste.com.br';
         $user->password = bcrypt('123456789');
         $user->email_verified_at = Carbon::now();
-        $user->is_admin = true;
+        $user->active = true;
+        $user->administrator = true;
         $user->save();
     }
 }

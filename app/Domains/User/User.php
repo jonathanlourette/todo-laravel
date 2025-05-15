@@ -15,7 +15,8 @@ use Illuminate\Notifications\Notifiable;
  * @property string email
  * @property string password
  * @property Carbon email_verified_at
- * @property boolean is_admin
+ * @property boolean administrator
+ * @property boolean active
  * @property Carbon created_at
  * @property Carbon updated_at
  */
@@ -59,7 +60,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'is_admin' => 'boolean',
+            'administrator' => 'boolean',
+            'active' => 'boolean',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];

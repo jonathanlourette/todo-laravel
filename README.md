@@ -2,7 +2,17 @@
 
 Autor: jonathanlourette@gmail.com - [GPL-2](https://opensource.org/license/gpl-2-0)
 
-## Instalação e/ou Execução  (Linux/WSL2 com Docker ou Docker Desktop)
+## Requisitos
+
+* PHP ^8.2
+* Composer ^2.0
+* MySQL 8
+
+## Isenção de responsabilidade
+
+Este software é fornecido "no estado em que se encontra", sem garantias. O uso, modificação, instalação e execução por métodos alternativos são de responsabilidade do usuário.
+
+## Instalação e/ou Execução ambiente Dev (Linux/WSL2 com Docker ou Docker Desktop)
 
 * Instalação
     

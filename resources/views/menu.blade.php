@@ -8,12 +8,16 @@
                     Dashboard
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">
-                    <i class="bi-people"></i>
-                    Usuários
-                </a>
-            </li>
+
+            @can('is_admin')
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ route('user.index') }}">
+                        <i class="bi-people"></i>
+                        Usuários
+                    </a>
+                </li>
+            @endcan
+
         </ul>
     </div>
 </nav>

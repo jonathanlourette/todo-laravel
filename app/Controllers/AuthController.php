@@ -38,13 +38,20 @@ class AuthController extends BaseController
         $request->session()->flush();
 
         if ($this->guard()->attempt($credentials)) {
+
+            /** @var \App\Domains\User\User $user  */
+            $user = $this->guard()->user();
+
+            if (!$user->active) {
+                $this->guard()->logout();
+                return back()->with('warning', 'Usuário ou senha inválidos...')->onlyInput('email');
+            }
+
             $request->session()->regenerate();
             return redirect()->intended(route('dashboard'));
         }
 
-        return back()->withErrors([
-            'email' => 'Usuário ou senha inválidos.',
-        ])->onlyInput('email');
+        return back()->with('warning', 'Usuário ou senha inválidos.')->onlyInput('email');
     }
 
     public function logout(Request $request)

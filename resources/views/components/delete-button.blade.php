@@ -1,12 +1,12 @@
 
 <a class="btn btn-danger badge" 
     href="javascript:{}" 
-    onclick="if(confirm('Você deseja continuar?')){document.getElementById('form_delete_{{ $itemId }}').submit()}"
+    onclick="if(confirm('Você deseja continuar?')){document.getElementById('{{ $prefix ?? 'form_delete'}}_{{ $itemId }}').submit()}"
     {{ $attributes->merge() }}
 >Deletar</a>
 <form class="d-none"
     method="POST"
-    id="form_delete_{{ $itemId }}"
+    id="{{ $prefix ?? 'form_delete'}}_{{ $itemId }}"
     action="{{ $route }}"
 >
     @csrf @method('DELETE')

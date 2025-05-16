@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Domains\User\Actions;
+namespace App\Domains\Task\Actions;
 
 use App\Exceptions\UserException;
 use App\Support\Action;
-use App\Domains\User\User;
+use App\Domains\Task\Task;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 
-class DeleteUserAction extends Action
+class ToggleTaskStatusAction extends Action
 {
-
     /**
      * @inheritDoc
      * @throws UserException
@@ -21,22 +20,19 @@ class DeleteUserAction extends Action
     public function perform(): mixed
     {
         try {
-            $user = User::findOrFail($this->data->get('userId'));
-
-            if ($user->tasks->isNotEmpty()) {
-                throw new UserException('Não é possivel deletar, usuario tem tarefas relacionadas.');
-            }
+            $task = Task::findOrFail($this->data->get('taskId'));
+            $task->status = !$task->status;
 
             DB::beginTransaction();
-            $user->delete();
+            $task->save();
             DB::commit();
 
-            return $user;
+            return $task;
         } catch (ModelNotFoundException) {
             throw new UserException('Item não encontrado!');
         } catch (QueryException) {
             DB::rollBack();
-            throw new UserException('Erro ao deletar item!');
+            throw new UserException('Erro ao atualizar item!');
         }
     }
 }

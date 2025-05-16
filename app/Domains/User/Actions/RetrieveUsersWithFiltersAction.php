@@ -8,7 +8,7 @@ use App\Exceptions\UserException;
 use App\Support\Action;
 use App\Domains\User\User;
 
-class RetrieveUsersWithFilterAction extends Action
+class RetrieveUsersWithFiltersAction extends Action
 {
 
     /**

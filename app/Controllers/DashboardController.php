@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use Illuminate\Http\Request;
 
-class DashboardController extends BaseController 
+
+class DashboardController extends BaseController
 {
-    public function index(Request $request): mixed
+    public function index(): mixed
     {
-        return view('dashboard');
+        $taskCount = auth()->user()->tasks()->where('status', '=', false)->count();
+
+        return view('dashboard', compact('taskCount'));
     }
 }

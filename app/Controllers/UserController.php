@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use App\Domains\User\Actions\DeleteUserAction;
 use Illuminate\Http\Request;
-use App\Domains\User\Actions\RetrieveUsersWithFilterAction;
+use App\Domains\User\Actions\RetrieveUsersWithFiltersAction;
 use App\Domains\User\Actions\RegisterUserAction;
 use App\Domains\User\Actions\RetrieveUserAction;
 use App\Domains\User\Actions\UpdateUserAction;
@@ -14,7 +14,7 @@ use App\Exceptions\UserException;
 
 class UserController extends BaseController
 {
-    public function index(Request $request, RetrieveUsersWithFilterAction $action): mixed
+    public function index(Request $request, RetrieveUsersWithFiltersAction $action): mixed
     {
         $this->authorize('is_admin');
 

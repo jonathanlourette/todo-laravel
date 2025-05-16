@@ -18,6 +18,12 @@
                 </li>
             @endcan
 
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{ route('task.index') }}">
+                    <i class="bi-list-task"></i>
+                    Tarefas
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

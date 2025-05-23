@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Domains\User\Actions\DeleteUserAction;
+use App\Domains\User\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Domains\User\Actions\RetrieveUsersWithFiltersAction;
 use App\Domains\User\Actions\RegisterUserAction;
@@ -18,9 +20,9 @@ class UserController extends BaseController
     {
         $this->authorize('is_admin');
 
-        /** @var \App\Domains\User\User[]|Illuminate\Database\Eloquent\Collection items */
-        $items = $action->setData($request->all())->perform();
-        return view('user.index', compact('items'));
+        /** @var User[]|Collection $users */
+        $users = $action->setData($request->all())->perform();
+        return view('user.index', compact('users'));
     }
 
     public function create(): mixed
@@ -28,16 +30,16 @@ class UserController extends BaseController
         return view('user.create');
     }
 
-    public function store(Request $request, RegisterUserAction $action ): mixed 
+    public function store(Request $request, RegisterUserAction $action ): mixed
     {
         $this->authorize('is_admin');
 
         try {
-            /** @var App\Domains\User\User $user */
+            /** @var User $user */
             $user = $action->setData($request->all())->perform();
             return redirect()
                 ->route('user.show', $user->id)
-                ->with('success', 'Usuario cadastrado com sucesso!');
+                ->with('success', 'Usuário cadastrado com sucesso!');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -64,11 +66,11 @@ class UserController extends BaseController
         $this->authorize('is_admin');
 
         try {
-            /** @var App\Domains\User\User $user */
+            /** @var User $user */
             $user = $action->setData($request->all() + compact('userId'))->perform();
             return redirect()
                 ->route('user.show', $user->id)
-                ->with('success', 'Usuario atualizado com sucesso');
+                ->with('success', 'Usuário atualizado com sucesso');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -77,12 +79,12 @@ class UserController extends BaseController
     public function delete(int $userId, Request $request, DeleteUserAction $action): mixed
     {
         $this->authorize('is_admin');
-        
+
         try {
             $action->setData(compact('userId'))->perform();
             return redirect()
                 ->route('user.index')
-                ->with('success', 'Usuario deletado com sucesso!');
+                ->with('success', 'Usuário deletado com sucesso!');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }

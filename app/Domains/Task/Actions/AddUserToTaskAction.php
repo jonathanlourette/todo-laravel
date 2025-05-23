@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class AddUserToTaskaction extends Action
+class AddUserToTaskAction extends Action
 {
     /**
      * @inheritDoc
@@ -20,10 +20,10 @@ class AddUserToTaskaction extends Action
     public function perform(): mixed
     {
         try {
-            /** @var App\Domains\Task\Task $task */
+            /** @var Task $task */
             $task = Task::findOrFail($this->data->get('taskId'));
             $userId = $this->data->get('user');
-            
+
             DB::beginTransaction();
             $task->users()->attach($userId);
             DB::commit();

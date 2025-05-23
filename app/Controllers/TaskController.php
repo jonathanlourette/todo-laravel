@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Domains\Task\Actions\AddUserToTaskaction;
+use App\Domains\Task\Actions\AddUserToTaskAction;
 use App\Domains\Task\Actions\DeleteTaskAction;
 use App\Domains\Task\Actions\RegisterTaskAction;
 use App\Domains\Task\Actions\RemoveUserFromTaskAction;
@@ -15,21 +15,16 @@ use App\Domains\Task\Actions\UpdateTaskAction;
 use App\Domains\User\User;
 use Illuminate\Http\Request;
 use App\Exceptions\UserException;
+use App\Domains\Task\Task;
+use Illuminate\Database\Eloquent\Collection;
 
 class TaskController extends BaseController
 {
     public function index(Request $request, RetrieveTasksWithFiltersAction $action): mixed
     {
+        $data = $request->all();
 
-        
-
-        //$userId = auth()->user()->id;
-
-        //$title = '';
-
-        $data = $request->all();// + compact('title');
-
-        /** @var \App\Domains\Task\Task[]|Illuminate\Database\Eloquent\Collection tasks */
+        /** @var Task[]|Collection $tasks */
         $tasks = $action->setData($data)->perform();
         return view('task.index', compact('tasks'));
     }
@@ -45,7 +40,7 @@ class TaskController extends BaseController
             $userId = auth()->user()->id;
             $data = $request->all() + compact('userId');
 
-            /** @var App\Domains\Task\Task task */
+            /** @var Task $task */
             $task = $action->setData($data)->perform();
             return redirect()
                 ->route('task.show', $task->id)
@@ -74,7 +69,7 @@ class TaskController extends BaseController
         try {
             $data = $request->all() + compact('taskId');
 
-            /** @var App\Domains\Task\Task $task */
+            /** @var Task $task */
             $task = $action->setData($data)->perform();
 
             return redirect()
@@ -103,23 +98,23 @@ class TaskController extends BaseController
             $action->setData(compact('taskId'))->perform();
             return redirect()
                 ->route('task.index')
-                ->with('success', 'Ação concluida com sucesso!');
+                ->with('success', 'Ação concluída com sucesso!');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }
     }
 
-    public function addUser(int $taskId, Request $request, AddUserToTaskaction $action): mixed
+    public function addUser(int $taskId, Request $request, AddUserToTaskAction $action): mixed
     {
         try {
             $data = $request->all() + compact('taskId');
 
-            /** @var App\Domains\Task\Task $task */
+            /** @var Task $task */
             $task = $action->setData($data)->perform();
 
             return redirect()
                 ->route('task.show', $task->id)
-                ->with('success', 'Usuario adicionado com sucesso!');
+                ->with('success', 'Usuário adicionado com sucesso!');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -130,14 +125,12 @@ class TaskController extends BaseController
         try {
             $data = compact('taskId', 'userId');
 
-            /** @var App\Domains\Task\Task $task */
+            /** @var Task $task */
             $task = $action->setData($data)->perform();
 
             return redirect()
                 ->route('task.show', $task->id)
-                ->with('success', 'Usuario removido com sucesso!');
-
-            return $task;
+                ->with('success', 'Usuário removido com sucesso!');
         } catch (UserException $e) {
             return back()->with('error', $e->getMessage());
         }

@@ -21,7 +21,7 @@ class DeleteTaskAction extends Action
     public function perform(): mixed
     {
         try {
-            /** @var App\Domains\Task\Task $task*/
+            /** @var Task $task*/
             $task = Task::findOrFail($this->data->get('taskId'));
 
             if ($task->users->isNotEmpty()) {

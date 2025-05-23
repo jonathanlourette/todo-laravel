@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseController
 {
-    public function show()
+    public function show(): mixed
     {
         if ($this->guard()->check()) {
             return redirect()->route('dashboard');
@@ -19,7 +19,7 @@ class AuthController extends BaseController
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): mixed
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -54,7 +54,7 @@ class AuthController extends BaseController
         return back()->with('warning', 'Usuário ou senha inválidos.')->onlyInput('email');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): mixed
     {
         $this->guard()->logout();
         return redirect()->route('login');

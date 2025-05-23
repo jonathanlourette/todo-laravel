@@ -21,7 +21,7 @@ class RemoveUserFromTaskAction extends Action
     {
         try {
 
-            /** @var App\Domains\Task\Task $task */
+            /** @var Task $task */
             $task = Task::findOrFail($this->data->get('taskId'));
             $userId = $this->data->get('userId');
 

@@ -1,4 +1,4 @@
-@extends('layout') 
+@extends('layout')
 
 @section('title', 'Usuários')
 
@@ -10,7 +10,7 @@
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">
-            
+
         </h1>
         <a href="{{ route('user.create') }}" class="btn btn-outline-secondary">
             <i data-feather="plus-circle" style="margin-bottom: 2px"></i> Cadastrar
@@ -36,20 +36,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($items as $item)
+                    @forelse($users as $user)
                         <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->email }}</td>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
                             <td>
-                                @if($item->administrator)
+                                @if($user->administrator)
                                     Sim
                                 @else
                                     Não
                                 @endif
                             </td>
                             <td>
-                                @if($item->active)
+                                @if($user->active)
                                      Ativo
                                 @else
                                     Inativo
@@ -57,10 +57,10 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end">
-                                    <a class="btn btn-primary badge" style="margin-right: 0.5rem" href="{{ route('user.show',  $item->id) }}">
+                                    <a class="btn btn-primary badge" style="margin-right: 0.5rem" href="{{ route('user.show',  $user->id) }}">
                                         Editar
                                     </a>
-                                    <x-delete-button route="{{ route('user.delete',  $item->id) }}" itemId="{{ $item->id }}"/>
+                                    <x-delete-button route="{{ route('user.delete',  $user->id) }}" itemId="{{ $user->id }}"/>
                                 </div>
                             </td>
                         </tr>
@@ -73,6 +73,6 @@
                 </table>
             </div>
         </div>
-        {{ $items->links() }}
+        {{ $users->links() }}
     </div>
 @endsection

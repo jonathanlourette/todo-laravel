@@ -57,7 +57,7 @@ class RegisterTaskAction extends Action
                 'in:true,false'
             ],
         ], [
-            'title.required' => 'Titulo é obrigatorio!',
+            'title.required' => 'Titulo é obrigatório!',
             'title.min' => 'Titulo não pode ser menos que 3 caracteres!',
             'title.max' => 'Titulo nao pode conter mais de 255 caracteres!',
             'description.max' => 'Descrição não pode conter mais de 500 caracteres!',
